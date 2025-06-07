@@ -3,9 +3,9 @@ import { BaseAPI } from "./base";
 import { Text2Video, Image2Video } from "../schemas/video";
 
 export class Video extends BaseAPI {
-  constructor(apiKey: string, enterprise: boolean = false) {
+  constructor(key: string, enterprise: boolean = false) {
     super({
-      apiKey,
+      key,
       baseUrl: enterprise
         ? "https://modelslab.com/api/v1/enterprise/video/"
         : "https://modelslab.com/api/v6/video/",

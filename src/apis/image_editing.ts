@@ -13,9 +13,9 @@ import {
 } from "../schemas/image_editing";
 
 export class ImageEditing extends BaseAPI {
-  constructor(apiKey: string, enterprise: boolean = false) {
+  constructor(key: string, enterprise: boolean = false) {
     super({
-      apiKey,
+      key,
       baseUrl: enterprise
         ? "https://modelslab.com/api/v1/enterprise/image_editing/"
         : "https://modelslab.com/api/v6/image_editing/",

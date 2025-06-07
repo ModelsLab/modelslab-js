@@ -7,9 +7,9 @@ import {
 } from "../schemas/realtime";
 
 export class Realtime extends BaseAPI {
-  constructor(apiKey: string, enterprise: boolean = false) {
+  constructor(key: string, enterprise: boolean = false) {
     super({
-      apiKey,
+      key,
       baseUrl: enterprise
         ? "https://modelslab.com/api/v1/enterprise/realtime/"
         : "https://modelslab.com/api/v6/realtime/",

@@ -2,26 +2,26 @@
 import axios from "axios";
 
 export class BaseAPI {
-  protected readonly apiKey: string;
+  protected readonly key: string;
   protected readonly baseUrl: string;
   protected readonly fetchRetry: number;
   protected readonly fetchTimeout: number;
   protected readonly enterprise: boolean;
 
   constructor({
-    apiKey,
+    key,
     baseUrl,
     fetchRetry = 10,
     fetchTimeout = 2,
     enterprise = false,
   }: {
-    apiKey: string;
+    key: string;
     baseUrl: string;
     fetchRetry?: number;
     fetchTimeout?: number;
     enterprise?: boolean;
   }) {
-    this.apiKey = apiKey;
+    this.key = key;
     this.baseUrl = baseUrl;
     this.fetchRetry = fetchRetry;
     this.fetchTimeout = fetchTimeout;
@@ -32,7 +32,7 @@ export class BaseAPI {
     const url = `${endpoint}`;
     const response = await axios.post(url, data, {
       headers: {
-        Authorization: `Bearer ${this.apiKey}`,
+        Authorization: `Bearer ${this.key}`,
         "Content-Type": "application/json",
       },
     });
@@ -42,7 +42,7 @@ export class BaseAPI {
   async fetch(id: string): Promise<any> {
     const url = `${this.baseUrl}fetch/${id}`;
     for (let i = 0; i < this.fetchRetry; i++) {
-      const response = await this.post(url, { key: this.apiKey });
+      const response = await this.post(url, { key: this.key });
       if (response.status === "success") {
         return response;
       }
@@ -55,7 +55,7 @@ export class BaseAPI {
     if (!this.enterprise) {
       throw new Error("System details are only available for enterprise users.");
     }
-    return this.post(`${this.baseUrl}${endpoint}`, { key: this.apiKey });
+    return this.post(`${this.baseUrl}${endpoint}`, { key: this.key });
   }
 
   async systemDetails() {

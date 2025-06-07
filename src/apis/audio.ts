@@ -13,9 +13,9 @@ import {
 } from "../schemas/audio";
 
 export class Audio extends BaseAPI {
-  constructor(apiKey: string, enterprise: boolean = false) {
+  constructor(key: string, enterprise: boolean = false) {
     super({
-      apiKey,
+      key,
       baseUrl: enterprise
         ? "https://modelslab.com/api/v1/enterprise/voice/"
         : "https://modelslab.com/api/v6/voice/",

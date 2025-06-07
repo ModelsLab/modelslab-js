@@ -3,9 +3,9 @@ import { BaseAPI } from "./base";
 import { Text23D, Image23D } from "../schemas/threed";
 
 export class ThreeD extends BaseAPI {
-  constructor(apiKey: string, enterprise: boolean = false) {
+  constructor(key: string, enterprise: boolean = false) {
     super({
-      apiKey,
+      key,
       baseUrl: enterprise
         ? "https://modelslab.com/api/v1/enterprise/3d/"
         : "https://modelslab.com/api/v6/3d/",

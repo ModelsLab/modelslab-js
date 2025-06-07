@@ -8,9 +8,9 @@ import {
 } from "../schemas/deepfake";
 
 export class DeepFake extends BaseAPI {
-  constructor(apiKey: string, enterprise: boolean = false) {
+  constructor(key: string, enterprise: boolean = false) {
     super({
-      apiKey,
+      key,
       baseUrl: enterprise
         ? "https://modelslab.com/api/v1/enterprise/deepfake/"
         : "https://modelslab.com/api/v6/deepfake/",

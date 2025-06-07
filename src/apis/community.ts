@@ -8,9 +8,9 @@ import {
 } from "../schemas/community";
 
 export class Community extends BaseAPI {
-  constructor(apiKey: string, enterprise: boolean = false) {
+  constructor(key: string, enterprise: boolean = false) {
     super({
-      apiKey,
+      key,
       baseUrl: enterprise
         ? "https://modelslab.com/api/v1/enterprise/images/text2img/"
         : "https://modelslab.com/api/v6/images/text2img/",

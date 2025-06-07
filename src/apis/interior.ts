@@ -9,9 +9,9 @@ import {
 } from "../schemas/interior";
 
 export class InteriorAPI extends BaseAPI {
-  constructor(apiKey: string, enterprise: boolean = false) {
+  constructor(key: string, enterprise: boolean = false) {
     super({
-      apiKey,
+      key,
       baseUrl: enterprise
         ? "https://modelslab.com/api/v1/enterprise/interior/"
         : "https://modelslab.com/api/v6/interior/",
