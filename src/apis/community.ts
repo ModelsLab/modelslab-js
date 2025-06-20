@@ -12,8 +12,8 @@ export class Community extends BaseAPI {
     super({
       key,
       baseUrl: enterprise
-        ? "https://modelslab.com/api/v1/enterprise/images/text2img/"
-        : "https://modelslab.com/api/v6/images/text2img/",
+        ? "https://modelslab.com/api/v1/enterprise/images/"
+        : "https://modelslab.com/api/v6/images/",
       enterprise,
     });
   }

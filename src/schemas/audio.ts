@@ -3,7 +3,6 @@ import { z } from "zod";
 
 import { BaseSchemaFields } from "./base";
 
-
 export const Text2AudioSchema = z.object({
   ...BaseSchemaFields,
   prompt: z.string(),
@@ -20,11 +19,11 @@ export type Text2Audio = z.infer<typeof Text2AudioSchema>;
 export const Text2SpeechSchema = z.object({
   ...BaseSchemaFields,
   prompt: z.string(),
-  voice_id: z.string().optional(),
-  language: z.string().optional(),
+  voice_id: z.string(),
+  language: z.string(),
   speed: z.number().optional(),
-  emotion: z.string().optional(),
-  temp: z.number().optional(),
+  emotion: z.boolean().optional(),
+  temp: z.boolean().optional(),
 });
 export type Text2Speech = z.infer<typeof Text2SpeechSchema>;
 

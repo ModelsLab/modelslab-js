@@ -3,7 +3,7 @@ import { z } from "zod";
 import { BaseSchemaFields } from "./base";
 
 const SharedImageFields = {
-  model_id: z.string().optional(),
+  model_id: z.string(),
   negative_prompt: z.string().optional(),
   width: z.number().optional(),
   height: z.number().optional(),
