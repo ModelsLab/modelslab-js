@@ -1,3 +1,5 @@
+# ModelsLab JavaScript SDK
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/bd1908c3-d59d-4902-8c79-bf48869c1109" alt="ModelsLab Logo" />
 </p>
@@ -14,51 +16,374 @@
   </a>
 </div>
 
-Modelslab provides cutting-edge **Generative AI APIs** for building production-grade AI-native applications with ease. Whether you need **image generation**, **text generation**, **video synthesis**, or **voice cloning**, Modelslab gives you high-performance APIs to power your product.
+The official JavaScript/TypeScript SDK for ModelsLab's powerful AI APIs. Generate images, create videos, clone voices, and more with just a few lines of code.
 
-📚 **Docs**: [https://docs.modelslab.com](https://docs.modelslab.com)
+## 🚀 Quick Start
 
----
-
-## ✨ What is Modelslab?
-
-Modelslab is an API platform that offers:
-
-* 🎨 Image generation (text-to-image, inpainting, upscaling)
-* 💬 Chat APIs (uncensored chat, character-based dialogues)
-* 🎥 Video generation (AI lip-sync, talking head, motion transfer)
-* 🗣 Voice cloning and text-to-speech
-* 🧠 Fast inference backend with GPU-optimized APIs
-
-You can plug these APIs into your apps, games, websites, or automation tools with just a few lines of code.
-
----
-
-## 🚀 Installation
+### Installation
 
 ```bash
 npm install modelslab
 ```
 
----
+### Basic Setup
 
-## 🛠 Usage
+```javascript
+import { Client, Community } from "modelslab";
 
-> Coming soon — SDK will provide simple TypeScript wrappers around Modelslab APIs for rapid integration.
+// Initialize the client with your API key
+const client = new Client("your-api-key-here");
 
-For full API documentation and usage examples, visit the official docs:
+// Create API instances
+const community = new Community(client.key);
+```
 
-📚 [Modelslab Documentation](https://docs.modelslab.com)
+### Your First AI Image
 
----
+```javascript
+const result = await community.textToImage({
+  key: client.key,
+  prompt: "A beautiful sunset over mountains",
+  model_id: "flux",
+  width: 512,
+  height: 512,
+  samples: 1,
+});
 
-## 💬 Feedback & Community
+console.log("Generated image:", result.output[0]);
+```
 
-* GitHub: [https://github.com/Modelslab](https://github.com/Modelslab)
-* Twitter: [@modelslab](https://x.com/ModelsLabAI)
+## 📖 Complete Usage Guide
 
----
+### 1. Getting Your API Key
+
+1. Sign up at [ModelsLab](https://modelslab.com)
+2. Get your API key from the dashboard
+3. Set it as an environment variable (optional):
+
+```bash
+export API_KEY="your-api-key-here"
+```
+
+### 2. Initialize the Client
+
+```javascript
+// Method 1: Direct API key
+const client = new Client("your-api-key");
+
+// Method 2: Environment variable
+const client = new Client(); // Reads from process.env.API_KEY
+
+// Method 3: With custom settings
+const client = new Client("your-api-key", 5, 10); // 5 retries, 10 second timeout
+```
+
+### 3. Available APIs
+
+#### Community API (Image Generation)
+
+```javascript
+import { Community } from "modelslab";
+
+const community = new Community(client.key);
+
+// Text to Image
+const image = await community.textToImage({
+  key: client.key,
+  prompt: "A futuristic city at night",
+  model_id: "stable-diffusion-v1-5",
+  width: 512,
+  height: 512,
+  samples: 1,
+  num_inference_steps: 20,
+  guidance_scale: 7.5,
+});
+
+// Image to Image
+const imageToImage = await community.imageToImage({
+  key: client.key,
+  prompt: "A painting in Van Gogh style",
+  init_image: "base64-encoded-image",
+  model_id: "stable-diffusion-v1-5",
+  strength: 0.8,
+});
+
+// Inpainting (Fill masked areas)
+const inpainting = await community.inpainting({
+  key: client.key,
+  prompt: "A red car",
+  init_image: "base64-encoded-image",
+  mask_image: "base64-encoded-mask",
+  model_id: "stable-diffusion-v1-5",
+});
+
+// ControlNet (Guided generation)
+const controlnet = await community.controlnet({
+  key: client.key,
+  prompt: "A realistic portrait",
+  controlnet_model: "canny",
+  controlnet_conditioning_scale: 1.0,
+  model_id: "stable-diffusion-v1-5",
+});
+```
+
+#### Other APIs
+
+```javascript
+import { Audio, Video, DeepFake, ImageEditing } from "modelslab";
+
+// Audio/Voice APIs
+const audio = new Audio(client.key);
+
+// Video Generation APIs
+const video = new Video(client.key);
+
+// DeepFake APIs
+const deepfake = new DeepFake(client.key);
+
+// Image Editing APIs
+const imageEditing = new ImageEditing(client.key);
+```
+
+### 4. Enterprise Features
+
+For enterprise users with dedicated infrastructure:
+
+```javascript
+// Enable enterprise mode
+const enterpriseCommunity = new Community(client.key, true);
+
+// This uses https://modelslab.com/api/v1/enterprise/images/ endpoints
+const result = await enterpriseCommunity.textToImage({
+  key: client.key,
+  prompt: "Enterprise AI image",
+  model_id: "stable-diffusion-v1-5",
+});
+```
+
+### 5. Handling Async Operations
+
+ModelsLab APIs are asynchronous. Here's how to handle them:
+
+```javascript
+// Method 1: Async/Await
+async function generateImage() {
+  try {
+    const result = await community.textToImage({
+      key: client.key,
+      prompt: "A beautiful landscape",
+      model_id: "stable-diffusion-v1-5",
+    });
+
+    if (result.status === "success") {
+      console.log("Image URL:", result.output[0]);
+    } else {
+      console.log("Still processing, request ID:", result.id);
+
+      // Fetch the result later
+      const finalResult = await community.fetch(result.id);
+      console.log("Final result:", finalResult);
+    }
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
+}
+
+// Method 2: Promises
+community
+  .textToImage({
+    key: client.key,
+    prompt: "A sunset",
+    model_id: "stable-diffusion-v1-5",
+  })
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));
+```
+
+### 6. TypeScript Support
+
+The SDK is written in TypeScript and includes full type definitions:
+
+```typescript
+import { Client, Community, Text2Image } from "modelslab";
+
+const client: Client = new Client("api-key");
+const community: Community = new Community(client.key);
+
+const request: Text2Image = {
+  key: client.key,
+  prompt: "A typed request",
+  model_id: "stable-diffusion-v1-5",
+  width: 512,
+  height: 512,
+};
+
+const result = await community.textToImage(request);
+```
+
+## �️ Advanced Usage
+
+### Custom Configuration
+
+```javascript
+// Custom retry and timeout settings
+const client = new Client("api-key", 3, 30); // 3 retries, 30 second timeout
+
+// Access client properties
+console.log(client.baseUrl); // "https://modelslab.com/api/"
+console.log(client.fetchRetry); // 3
+console.log(client.fetchTimeout); // 30
+```
+
+### Error Handling
+
+```javascript
+try {
+  const result = await community.textToImage({
+    key: client.key,
+    prompt: "Test image",
+    model_id: "stable-diffusion-v1-5",
+  });
+} catch (error) {
+  if (error.message.includes("API key")) {
+    console.error("Invalid API key");
+  } else if (error.message.includes("Network")) {
+    console.error("Network error, please try again");
+  } else {
+    console.error("Unknown error:", error.message);
+  }
+}
+```
+
+### Fetching Results
+
+```javascript
+// Start generation
+const initialResult = await community.textToImage({
+  key: client.key,
+  prompt: "Long processing image",
+  model_id: "stable-diffusion-v1-5",
+});
+
+// If still processing, fetch later
+if (initialResult.status !== "success") {
+  console.log("Processing... Request ID:", initialResult.id);
+
+  // Wait and fetch
+  await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait 5 seconds
+  const finalResult = await community.fetch(initialResult.id);
+
+  if (finalResult.status === "success") {
+    console.log("Image ready:", finalResult.output[0]);
+  }
+}
+```
+
+## 🎯 Common Use Cases
+
+### 1. AI Art Generator
+
+```javascript
+async function generateArt(description, style) {
+  const result = await community.textToImage({
+    key: client.key,
+    prompt: `${description} in ${style} style`,
+    model_id: "stable-diffusion-v1-5",
+    width: 512,
+    height: 512,
+    guidance_scale: 7.5,
+    num_inference_steps: 20,
+  });
+
+  return result.output[0];
+}
+
+// Usage
+const artUrl = await generateArt("a dragon", "anime");
+```
+
+### 2. Image Variation Generator
+
+```javascript
+async function createVariations(baseImage, newPrompt) {
+  const result = await community.imageToImage({
+    key: client.key,
+    prompt: newPrompt,
+    init_image: baseImage, // base64 encoded
+    strength: 0.7,
+    model_id: "stable-diffusion-v1-5",
+  });
+
+  return result.output;
+}
+```
+
+### 3. Background Remover/Replacer
+
+```javascript
+async function replaceBackground(image, mask, newBackground) {
+  const result = await community.inpainting({
+    key: client.key,
+    prompt: newBackground,
+    init_image: image,
+    mask_image: mask,
+    model_id: "stable-diffusion-v1-5",
+  });
+
+  return result.output[0];
+}
+```
+
+## 🔧 Testing
+
+The package includes comprehensive tests:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run interactive demo
+npm run test:demo
+
+# Quick validation
+npm run test:validate
+```
+
+## 📚 API Reference
+
+For detailed API documentation, visit: [https://docs.modelslab.com](https://docs.modelslab.com)
+
+### Available Models
+
+Popular model IDs you can use:
+
+- `stable-diffusion-v1-5`
+- `stable-diffusion-xl-base-1.0`
+- `deliberate-v2`
+- `anything-v5`
+- `realistic-vision-v1.3`
+
+## ❗ Error Codes
+
+Common errors and solutions:
+
+| Error                  | Cause                  | Solution                                |
+| ---------------------- | ---------------------- | --------------------------------------- |
+| "API key is required"  | Missing API key        | Set API key in client initialization    |
+| "Model not found"      | Invalid model_id       | Check available models in docs          |
+| "Insufficient credits" | Not enough API credits | Add credits to your account             |
+| "Rate limit exceeded"  | Too many requests      | Wait and retry with exponential backoff |
+
+## 🤝 Support & Community
+
+- **Documentation**: [https://docs.modelslab.com](https://docs.modelslab.com)
+- **Discord**: [Join our community](https://discord.com/invite/modelslab-1033301189254729748)
+- **Twitter**: [@ModelsLabAI](https://x.com/ModelsLabAI)
+- **GitHub Issues**: [Report bugs](https://github.com/ModelsLab/modelslab-js/issues)
 
 ## 📄 License
 
-MIT
+MIT License - see [LICENSE](LICENSE) file for details.
