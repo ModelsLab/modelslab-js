@@ -140,3 +140,19 @@ export const InpaintingSchema = z.object({
   base64: z.boolean().optional().default(false),
 });
 export type Inpainting = z.infer<typeof InpaintingSchema>;
+
+export const QwenEditSchema = z.object({
+  ...BaseSchemaFields,
+  prompt: z.string(),
+  init_image: z.array(z.string()),
+  base64: z.boolean().optional().default(false),
+});
+export type QwenEdit = z.infer<typeof QwenEditSchema>;
+
+export const CaptionSchema = z.object({
+  ...BaseSchemaFields,
+  init_image: z.string(),
+  length: z.enum(["short", "normal", "long"]).optional().default("normal"),
+  base64: z.boolean().optional().default(false),
+});
+export type Caption = z.infer<typeof CaptionSchema>;

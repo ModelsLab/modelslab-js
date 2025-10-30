@@ -10,6 +10,8 @@ import {
   Inpainting,
   Headshot,
   FluxHeadshot,
+  QwenEdit,
+  Caption,
 } from "../schemas/image_editing";
 
 export class ImageEditing extends BaseAPI {
@@ -57,5 +59,13 @@ export class ImageEditing extends BaseAPI {
 
   async fluxHeadshot(schema: FluxHeadshot) {
     return this.post(this.baseUrl + "flux_headshot", schema);
+  }
+
+  async qwenEdit(schema: QwenEdit) {
+    return this.post(this.baseUrl + "qwen_edit", schema);
+  }
+
+  async caption(schema: Caption) {
+    return this.post(this.baseUrl + "caption", schema);
   }
 }

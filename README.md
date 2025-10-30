@@ -127,22 +127,104 @@ const controlnet = await community.controlnet({
 });
 ```
 
+#### Image Editing API
+
+```javascript
+import { ImageEditing } from "modelslab";
+
+const imageEditing = new ImageEditing(client.key);
+
+// Qwen Edit - Edit images using Qwen model
+const qwenEdit = await imageEditing.qwenEdit({
+  key: client.key,
+  prompt: "Add a sunset in the background",
+  init_image: ["https://example.com/image.jpg"],
+  base64: false,
+});
+
+// Caption - Generate captions for images
+const caption = await imageEditing.caption({
+  key: client.key,
+  init_image: "https://example.com/image.jpg",
+  length: "normal", // "short", "normal", or "long"
+  base64: false,
+});
+
+// Other image editing methods
+const outpainting = await imageEditing.outpainting({...});
+const backgroundRemover = await imageEditing.backgroundRemover({...});
+const superResolution = await imageEditing.superResolution({...});
+const fashion = await imageEditing.fashion({...});
+const objectRemover = await imageEditing.objectRemover({...});
+const facegen = await imageEditing.facegen({...});
+const inpainting = await imageEditing.inpainting({...});
+const headshot = await imageEditing.headshot({...});
+const fluxHeadshot = await imageEditing.fluxHeadshot({...});
+```
+
+#### Video API
+
+```javascript
+import { Video } from "modelslab";
+
+const video = new Video(client.key);
+
+// Watermark Remover - Remove watermarks from videos
+const watermarkRemoval = await video.watermarkRemover({
+  key: client.key,
+  init_video: "https://example.com/video.mp4",
+});
+
+// Other video methods
+const textToVideo = await video.textToVideo({...});
+const imageToVideo = await video.imageToVideo({...});
+```
+
+#### Interior API
+
+```javascript
+import { InteriorAPI } from "modelslab";
+
+const interior = new InteriorAPI(client.key);
+
+// Object Removal - Remove objects from room images
+const objectRemoval = await interior.objectRemoval({
+  key: client.key,
+  init_image: "https://example.com/room.jpg",
+  object_name: "chair",
+  base64: false,
+});
+
+// Interior Mixer - Add objects from one image into another room
+const interiorMixer = await interior.interiorMixer({
+  key: client.key,
+  init_image: "https://example.com/room.jpg",
+  object_image: "https://example.com/furniture.jpg",
+  prompt: "Add the furniture to the living room",
+  width: 1280,
+  height: 1280,
+  num_inference_steps: 8,
+  base64: false,
+});
+
+// Other interior methods
+const interiorDesign = await interior.interior({...});
+const roomDecorator = await interior.roomDecorator({...});
+const floor = await interior.floor({...});
+const scenario = await interior.scenario({...});
+const exteriorRestorer = await interior.exteriorRestorer({...});
+```
+
 #### Other APIs
 
 ```javascript
-import { Audio, Video, DeepFake, ImageEditing } from "modelslab";
+import { Audio, DeepFake } from "modelslab";
 
 // Audio/Voice APIs
 const audio = new Audio(client.key);
 
-// Video Generation APIs
-const video = new Video(client.key);
-
 // DeepFake APIs
 const deepfake = new DeepFake(client.key);
-
-// Image Editing APIs
-const imageEditing = new ImageEditing(client.key);
 ```
 
 ### 4. Enterprise Features

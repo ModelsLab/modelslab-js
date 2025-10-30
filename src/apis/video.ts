@@ -1,6 +1,6 @@
 // src/apis/video.ts
 import { BaseAPI } from "./base";
-import { Text2Video, Image2Video } from "../schemas/video";
+import { Text2Video, Image2Video, WatermarkRemover } from "../schemas/video";
 
 export class Video extends BaseAPI {
   constructor(key: string, enterprise: boolean = false) {
@@ -19,5 +19,9 @@ export class Video extends BaseAPI {
 
   async imageToVideo(schema: Image2Video) {
     return this.post(this.baseUrl + "img2video", schema);
+  }
+
+  async watermarkRemover(schema: WatermarkRemover) {
+    return this.post(this.baseUrl + "watermark_remover", schema);
   }
 }

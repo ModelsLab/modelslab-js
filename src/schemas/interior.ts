@@ -54,3 +54,24 @@ export const ScenarioSchema = z.object({
   scenario: z.string().optional(),
 });
 export type Scenario = z.infer<typeof ScenarioSchema>;
+
+export const ObjectRemovalSchema = z.object({
+  ...BaseSchemaFields,
+  init_image: z.string(),
+  object_name: z.string(),
+  base64: z.boolean().optional().default(false),
+});
+export type ObjectRemoval = z.infer<typeof ObjectRemovalSchema>;
+
+export const InteriorMixerSchema = z.object({
+  ...BaseSchemaFields,
+  init_image: z.string(),
+  object_image: z.string(),
+  prompt: z.string(),
+  width: z.number().min(512).max(2048).optional(),
+  height: z.number().min(512).max(2048).optional(),
+  guidance_scale: z.number().optional(),
+  num_inference_steps: z.number().optional().default(8),
+  base64: z.boolean().optional().default(false),
+});
+export type InteriorMixer = z.infer<typeof InteriorMixerSchema>;
