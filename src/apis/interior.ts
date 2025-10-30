@@ -6,6 +6,8 @@ import {
   Floor,
   RoomDecorator,
   Interior,
+  ObjectRemoval,
+  InteriorMixer,
 } from "../schemas/interior";
 
 export class InteriorAPI extends BaseAPI {
@@ -37,5 +39,13 @@ export class InteriorAPI extends BaseAPI {
 
   async exteriorRestorer(schema: Exterior) {
     return this.post(this.baseUrl + "exterior_restorer", schema);
+  }
+
+  async objectRemoval(schema: ObjectRemoval) {
+    return this.post(this.baseUrl + "object_removal", schema);
+  }
+
+  async interiorMixer(schema: InteriorMixer) {
+    return this.post(this.baseUrl + "interior_mixer", schema);
   }
 }

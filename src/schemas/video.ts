@@ -44,3 +44,9 @@ export const Text2VideoUltraSchema = z.object({
   sample_shift: z.number().optional(),
 });
 export type Text2VideoUltra = z.infer<typeof Text2VideoUltraSchema>;
+
+export const WatermarkRemoverSchema = z.object({
+  ...BaseSchemaFields,
+  init_video: z.string(),
+});
+export type WatermarkRemover = z.infer<typeof WatermarkRemoverSchema>;
