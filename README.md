@@ -16,6 +16,7 @@
   </a>
 </div>
 
+--
 The official JavaScript/TypeScript SDK for ModelsLab's powerful AI APIs. Generate images, create videos, clone voices, and more with just a few lines of code.
 
 ## 🚀 Quick Start
