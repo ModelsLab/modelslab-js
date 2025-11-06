@@ -5,6 +5,7 @@ import {
   Image2Image,
   Inpainting,
   ControlNet,
+  QwenText2Image,
 } from "../schemas/community";
 
 export class Community extends BaseAPI {
@@ -32,5 +33,12 @@ export class Community extends BaseAPI {
 
   async controlnet(schema: ControlNet) {
     return this.post(this.baseUrl + "controlnet", schema);
+  }
+
+  async qwenTextToImage(schema: QwenText2Image) {
+    if (!this.enterprise) {
+      throw new Error("Qwen API is only available for enterprise users.");
+    }
+    return this.post("https://modelslab.com/api/v1/enterprise/qwen/text2img", schema);
   }
 }

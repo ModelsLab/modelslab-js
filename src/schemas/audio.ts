@@ -78,6 +78,7 @@ export type MusicGen = z.infer<typeof MusicGenSchema>;
 export const LyricsGeneratorSchema = z.object({
   ...BaseSchemaFields,
   prompt: z.string(),
+  length: z.string().optional(),
 });
 export type LyricsGenerator = z.infer<typeof LyricsGeneratorSchema>;
 
@@ -86,6 +87,7 @@ export const SongGeneratorSchema = z.object({
   lyrics_generation: z.boolean().optional(),
   init_audio: z.any().optional(),
   prompt: z.string(),
+  model_id: z.string().optional(),
   lyrics: z.string().optional(),
 });
 export type SongGenerator = z.infer<typeof SongGeneratorSchema>;
