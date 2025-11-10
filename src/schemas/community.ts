@@ -58,3 +58,13 @@ export const ControlNetSchema = z.object({
   ...SharedImageFields,
 });
 export type ControlNet = z.infer<typeof ControlNetSchema>;
+
+export const QwenText2ImageSchema = z.object({
+  ...BaseSchemaFields,
+  prompt: z.string(),
+  negative_prompt: z.string().optional(),
+  width: z.number().optional().default(512),
+  height: z.number().optional().default(512),
+  samples: z.number().optional().default(1),
+});
+export type QwenText2Image = z.infer<typeof QwenText2ImageSchema>;

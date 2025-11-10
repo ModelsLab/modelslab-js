@@ -33,7 +33,7 @@ npm install modelslab
 import { Client, Community } from "modelslab";
 
 // Initialize the client with your API key
-const client = new Client("your-api-key-here");
+const client = new Client("your_api_key");
 
 // Create API instances
 const community = new Community(client.key);
@@ -63,20 +63,20 @@ console.log("Generated image:", result.output[0]);
 3. Set it as an environment variable (optional):
 
 ```bash
-export API_KEY="your-api-key-here"
+export API_KEY="your_api_key"
 ```
 
 ### 2. Initialize the Client
 
 ```javascript
 // Method 1: Direct API key
-const client = new Client("your-api-key");
+const client = new Client("your_api_key");
 
 // Method 2: Environment variable
 const client = new Client(); // Reads from process.env.API_KEY
 
 // Method 3: With custom settings
-const client = new Client("your-api-key", 5, 10); // 5 retries, 10 second timeout
+const client = new Client("your_api_key", 5, 10); // 5 retries, 10 second timeout
 ```
 
 ### 3. Available APIs
