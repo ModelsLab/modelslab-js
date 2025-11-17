@@ -3,7 +3,6 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/bd1908c3-d59d-4902-8c79-bf48869c1109" alt="ModelsLab Logo" />
 </p>
-
 <div align="center">
   <a href="https://discord.com/invite/modelslab-1033301189254729748">
     <img src="https://img.shields.io/badge/Discord-Join%20Us-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
@@ -14,8 +13,10 @@
   <a href="https://github.com/ModelsLab">
     <img src="https://img.shields.io/badge/GitHub-ModelsLab-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
   </a>
+  <a href="https://www.npmjs.com/package/modelslab">
+    <img src="https://img.shields.io/npm/dt/modelslab?style=for-the-badge&label=Downloads&color=green&labelColor=black" alt="NPM Downloads">
+  </a>
 </div>
-
 --
 The official JavaScript/TypeScript SDK for ModelsLab's powerful AI APIs. Generate images, create videos, clone voices, and more with just a few lines of code.
 
