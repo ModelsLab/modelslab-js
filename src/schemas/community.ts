@@ -68,3 +68,21 @@ export const QwenText2ImageSchema = z.object({
   samples: z.number().optional().default(1),
 });
 export type QwenText2Image = z.infer<typeof QwenText2ImageSchema>;
+
+export const ZImageTurboSchema = z.object({
+  ...BaseSchemaFields,
+  prompt: z.string(),
+  width: z.number().optional(),
+  height: z.number().optional(),
+  samples: z.number().optional(),
+});
+export type ZImageTurbo = z.infer<typeof ZImageTurboSchema>;
+
+export const Flux2DevSchema = z.object({
+  ...BaseSchemaFields,
+  prompt: z.string(),
+  width: z.number().optional(),
+  height: z.number().optional(),
+  samples: z.number().optional(),
+});
+export type Flux2Dev = z.infer<typeof Flux2DevSchema>;

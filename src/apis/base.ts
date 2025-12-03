@@ -34,6 +34,7 @@ export class BaseAPI {
       headers: {
         Authorization: `Bearer ${this.key}`,
         "Content-Type": "application/json",
+        "X-Requested-With": "modelslab-js",
       },
     });
     return response.data;
