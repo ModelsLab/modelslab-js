@@ -1,5 +1,4 @@
 // src/apis/base.ts
-import axios from "axios";
 
 export class BaseAPI {
   protected readonly key: string;
@@ -30,13 +29,33 @@ export class BaseAPI {
 
   protected async post(endpoint: string, data: any): Promise<any> {
     const url = `${endpoint}`;
-    const response = await axios.post(url, data, {
+    const response = await fetch(url, {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${this.key}`,
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(data),
     });
-    return response.data;
+
+    const responseText = await response.text();
+    let responseData: any;
+
+    try {
+      responseData = responseText ? JSON.parse(responseText) : {};
+    } catch {
+      throw new Error(
+        `Invalid JSON response from ${url} (status: ${response.status}).`
+      );
+    }
+
+    if (!response.ok) {
+      const message =
+        responseData?.message || `Request failed with status ${response.status}`;
+      throw new Error(message);
+    }
+
+    return responseData;
   }
 
   async fetch(id: string): Promise<any> {
