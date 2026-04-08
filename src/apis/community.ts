@@ -6,6 +6,8 @@ import {
   Inpainting,
   ControlNet,
   QwenText2Image,
+  ZImageTurbo,
+  Flux2Dev,
 } from "../schemas/community";
 
 export class Community extends BaseAPI {
@@ -40,5 +42,15 @@ export class Community extends BaseAPI {
       throw new Error("Qwen API is only available for enterprise users.");
     }
     return this.post("https://modelslab.com/api/v1/enterprise/qwen/text2img", schema);
+  }
+
+  async zImageTurbo(schema: ZImageTurbo) {
+    const data = { ...schema, model_id: "z-image-turbo" };
+    return this.post(this.baseUrl + "text2img", data);
+  }
+
+  async flux2Dev(schema: Flux2Dev) {
+    const data = { ...schema, model_id: "flux-2-dev" };
+    return this.post(this.baseUrl + "text2img", data);
   }
 }

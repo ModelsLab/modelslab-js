@@ -11,6 +11,9 @@ export { Audio } from "./apis/audio";
 export { ImageEditing } from "./apis/image_editing";
 export { Video } from "./apis/video";
 
+// Export providers
+export * from "./providers";
+
 // Export schemas
 export * from "./schemas/base";
 export * from "./schemas/community";
